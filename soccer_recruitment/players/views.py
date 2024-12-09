@@ -1,24 +1,28 @@
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth import logout
+from django.contrib.auth import logout, authenticate, login
 from django.shortcuts import render, redirect
-from django.contrib.auth import authenticate, login
-from django.contrib.auth.models import User
 from django.contrib import messages
-from .forms import RegistrationForm, SignInForm
+from django.contrib.auth.models import User
+from .forms import RegistrationForm, SignInForm, PlayerForm
+from .models import Player  # Ensure Player model is created
 
 
+# Home Page View
 def home(request):
     return render(request, 'home.html')
 
 
+# Soccer Scholarships Page View
 def soccer_scholarships(request):
     return render(request, 'soccer_scholarships.html')
 
 
+# About Us Page View
 def about_us(request):
     return render(request, 'about_us.html')
 
 
+# Register Page View
 def register(request):
     if request.method == 'POST':
         form = RegistrationForm(request.POST)
@@ -51,6 +55,7 @@ def register(request):
     return render(request, 'register.html', {'form': form})
 
 
+# Sign In Page View
 def signin(request):
     if request.method == 'POST':
         form = SignInForm(request.POST)
@@ -77,23 +82,41 @@ def signin(request):
 
     return render(request, 'signin.html', {'form': form})
 
-# Dashboard view
+
+# Dashboard View (Protected by login_required)
 @login_required
 def dashboard(request):
     return render(request, 'dashboard.html', {'user': request.user})
 
 
-# Logout view
+# Logout View
 def logout_view(request):
     logout(request)
     messages.success(request, "You have successfully logged out.")
     return redirect('home')  # Redirect to the home page after logout
 
+
+# Requisites View (Protected by login_required)
 @login_required
 def requisites(request):
-    return render(request, 'requisites.html')
+    if request.method == 'POST':
+        form = PlayerForm(request.POST)
+        if form.is_valid():
+            player = form.save(commit=False)
+            player.user = request.user  # Associate player with logged-in user
+            player.save()
+            messages.success(request, "Your requisites have been saved successfully.")
+            return redirect('tasks')  # Redirect to the tasks page after requisites are filled
+        else:
+            messages.error(request, "Please complete all the required fields.")
+            return render(request, 'requisites.html', {'form': form})
+
+    else:
+        form = PlayerForm()  # Empty form for GET request
+    return render(request, 'requisites.html', {'form': form})
 
 
+# Tasks Page View (Protected by login_required)
 @login_required
 def tasks(request):
     return render(request, 'tasks.html')

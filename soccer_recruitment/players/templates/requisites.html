@@ -1,8 +1,15 @@
+<!-- requisites.html -->
 {% extends 'base.html' %}
 
-{% block title %}Requisites{% endblock %}
+{% block title %}Requisites - Soccer Abroad{% endblock %}
 
 {% block content %}
-    <h1>Requisites Page</h1>
-    <p>Details about requisites will be displayed here.</p>
+    <h1>Soccer Scholarship Requirements</h1>
+    <p>In order to apply for a soccer scholarship in the USA, you need to complete the questionnaire below.</p>
+    <form method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" name="save">Save</button>
+        <button type="submit" name="submit">Submit</button>
+    </form>
 {% endblock %}
