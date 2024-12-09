@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register - Soccer Abroad</title>
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+</head>
+<body style="background-color: #f5f5f5; color: black;">
+
+    <h1 style="text-align: center;">Welcome to Soccer Abroad</h1>
+    <h2 style="text-align: center;">Please sign up or sign in</h2>
+
+    <form method="POST" style="max-width: 600px; margin: auto;">
+        {% csrf_token %}
+        {{ form.as_p }}
+
+        <button type="submit" style="background-color: yellow; color: black;">Sign Up</button>
+
+        {% if messages %}
+            {% for message in messages %}
+                <p style="color: red;">{{ message }}</p>
+            {% endfor %}
+        {% endif %}
+    </form>
+
+    <br>
+    <a href="{% url 'signin' %}" style="color: yellow; display: block; text-align: center;">Already have an account? Sign in here.</a>
+
+</body>
+</html>
