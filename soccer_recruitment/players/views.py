@@ -1,3 +1,5 @@
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth import logout
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.models import User
@@ -54,7 +56,6 @@ def signin(request):
         form = SignInForm(request.POST)
 
         if form.is_valid():
-            # Extract cleaned data
             email = form.cleaned_data['email']
             password = form.cleaned_data['password']
 
@@ -64,15 +65,35 @@ def signin(request):
             if user is not None:
                 login(request, user)
                 messages.success(request, "You have successfully logged in.")
-                return redirect('home')  # Redirect to the home page after login
+                return redirect('dashboard')  # Redirect to the dashboard page
             else:
                 messages.error(request, "Invalid email or password.")
                 return render(request, 'signin.html', {'form': form})
         else:
-            # Handle form validation errors
             return render(request, 'signin.html', {'form': form})
 
     else:
         form = SignInForm()
 
     return render(request, 'signin.html', {'form': form})
+
+# Dashboard view
+@login_required
+def dashboard(request):
+    return render(request, 'dashboard.html', {'user': request.user})
+
+
+# Logout view
+def logout_view(request):
+    logout(request)
+    messages.success(request, "You have successfully logged out.")
+    return redirect('home')  # Redirect to the home page after logout
+
+@login_required
+def requisites(request):
+    return render(request, 'requisites.html')
+
+
+@login_required
+def tasks(request):
+    return render(request, 'tasks.html')

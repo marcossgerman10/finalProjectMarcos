@@ -107,3 +107,84 @@ p {
     text-align: center;
 }
 
+header nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #333;
+    color: white;
+    padding: 10px 20px;
+}
+
+header nav h2 {
+    margin: 0;
+}
+
+header nav a {
+    text-decoration: none;
+    margin-right: 10px;
+    color: yellow;
+}
+
+header nav a:hover {
+    text-decoration: underline;
+}
+
+main {
+    padding: 20px;
+}
+
+main h1 {
+    color: #333;
+}
+
+/* Navigation bar styling */
+header nav {
+    background-color: #333;
+    color: white;
+    padding: 10px 20px;
+}
+
+.nav-container {
+    display: flex;
+    justify-content: space-between; /* Space between welcome message and links */
+    align-items: center;
+}
+
+.welcome-name {
+    margin: 0;
+    font-size: 1.2rem;
+    color: white;
+}
+
+/* Style for navigation links */
+.nav-links {
+    display: flex;
+    gap: 20px; /* Space between links */
+}
+
+.nav-links a {
+    text-decoration: none;
+    color: yellow;
+    font-size: 1rem;
+    padding: 5px 10px; /* Add padding inside links for better clickable area */
+    transition: background-color 0.3s ease;
+}
+
+.nav-links a:hover {
+    background-color: #444; /* Highlight effect on hover */
+    border-radius: 5px;
+}
+
+/* Responsive Design: Adjust for smaller screens */
+@media (max-width: 768px) {
+    .nav-container {
+        flex-direction: column; /* Stack welcome name and links vertically */
+        align-items: flex-start;
+    }
+
+    .nav-links {
+        margin-top: 10px;
+        gap: 10px;
+    }
+}

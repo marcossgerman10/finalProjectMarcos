@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+   {% load static %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Soccer Abroad{% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+</head>
+<body style="background-color: #f5f5f5; color: black;">
+
+    <!-- Navigation Bar -->
+    <header>
+        <nav>
+        <div class="nav-container">
+            <h2 class="welcome-name">Welcome, {{ user.first_name }} {{ user.last_name }}</h2>
+            <div class="nav-links">
+                <a href="{% url 'dashboard' %}">Dashboard</a>
+                <a href="{% url 'requisites' %}">Requisites</a>
+                <a href="{% url 'tasks' %}">Tasks</a>
+                <a href="{% url 'logout' %}">Log Out</a>
+            </div>
+        </div>
+    </nav>
+    </header>
+
+    <!-- Page Content -->
+    <main style="padding: 20px;">
+        {% block content %}
+        {% endblock %}
+    </main>
+
+</body>
+</html>

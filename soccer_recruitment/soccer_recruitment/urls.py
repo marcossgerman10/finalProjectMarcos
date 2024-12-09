@@ -25,4 +25,8 @@ urlpatterns = [
     path('signin/', views.signin, name='signin'),
     path('soccer-scholarships', views.soccer_scholarships, name='soccer_scholarships'),
     path('about-us', views.about_us, name='about_us'),
+    path('dashboard/', views.dashboard, name='dashboard'),
+    path('logout/', views.logout_view, name='logout'),
+    path('requisites/', views.requisites, name='requisites'),
+    path('tasks/', views.tasks, name='tasks'),
 ]
