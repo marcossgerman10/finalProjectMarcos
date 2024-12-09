@@ -1,15 +1,14 @@
 from django import forms
 from django.contrib.auth.models import User
 from django.core.exceptions import ValidationError
-import re
 
 
 class RegistrationForm(forms.Form):
-    email = forms.EmailField()
-    name = forms.CharField(max_length=100)
-    surname = forms.CharField(max_length=100)
-    password = forms.CharField(widget=forms.PasswordInput)
-    password2 = forms.CharField(widget=forms.PasswordInput)
+    email = forms.EmailField(label="Email")
+    name = forms.CharField(max_length=100, label="First Name")
+    surname = forms.CharField(max_length=100, label="Last Name")
+    password = forms.CharField(widget=forms.PasswordInput, label="Password")
+    password2 = forms.CharField(widget=forms.PasswordInput, label="Repeat Password")  # Updated label
 
     def clean_email(self):
         email = self.cleaned_data.get('email')
@@ -35,8 +34,8 @@ class RegistrationForm(forms.Form):
 
 
 class SignInForm(forms.Form):
-    email = forms.EmailField()
-    password = forms.CharField(widget=forms.PasswordInput)
+    email = forms.EmailField(label="Email")
+    password = forms.CharField(widget=forms.PasswordInput, label="Password")
 
     def clean_email(self):
         email = self.cleaned_data.get('email')

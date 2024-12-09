@@ -4,11 +4,14 @@ from django.contrib.auth.models import User
 from django.contrib import messages
 from .forms import RegistrationForm, SignInForm
 
+
 def home(request):
     return render(request, 'home.html')
 
+
 def soccer_scholarships(request):
     return render(request, 'soccer_scholarships.html')
+
 
 def about_us(request):
     return render(request, 'about_us.html')
@@ -19,31 +22,25 @@ def register(request):
         form = RegistrationForm(request.POST)
 
         if form.is_valid():
+            # Extract cleaned data
             email = form.cleaned_data['email']
             password = form.cleaned_data['password']
-            password2 = form.cleaned_data['password2']
 
-            # Check if passwords match
-            if password != password2:
-                messages.error(request, "Passwords do not match.")
-                return render(request, 'register.html', {'form': form})
-
-            # Check if email already exists
-            if User.objects.filter(email=email).exists():
-                messages.error(request, "Email is already registered.")
-                return render(request, 'register.html', {'form': form})
-
-            # Create a new user
-            user = User.objects.create_user(email=email, password=password)
-            user.first_name = form.cleaned_data['name']
-            user.last_name = form.cleaned_data['surname']
+            # Check if email already exists (handled in form, so just save user)
+            user = User.objects.create_user(
+                username=email,  # Required field in Django User model
+                email=email,
+                password=password,
+                first_name=form.cleaned_data['name'],
+                last_name=form.cleaned_data['surname']
+            )
             user.save()
 
             messages.success(request, "You have been successfully registered.")
             return redirect('signin')  # Redirect to login page after successful registration
 
         else:
-            messages.error(request, "Please correct the errors below.")
+            # Handle form validation errors
             return render(request, 'register.html', {'form': form})
 
     else:
@@ -57,6 +54,7 @@ def signin(request):
         form = SignInForm(request.POST)
 
         if form.is_valid():
+            # Extract cleaned data
             email = form.cleaned_data['email']
             password = form.cleaned_data['password']
 
@@ -66,12 +64,12 @@ def signin(request):
             if user is not None:
                 login(request, user)
                 messages.success(request, "You have successfully logged in.")
-                return redirect('dashboard')  # Redirect to the dashboard or home page
+                return redirect('home')  # Redirect to the home page after login
             else:
                 messages.error(request, "Invalid email or password.")
                 return render(request, 'signin.html', {'form': form})
         else:
-            messages.error(request, "Please correct the errors below.")
+            # Handle form validation errors
             return render(request, 'signin.html', {'form': form})
 
     else:
