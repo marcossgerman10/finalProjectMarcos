@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    {% load static %}
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Register - Soccer Abroad</title>
@@ -8,24 +9,49 @@
 </head>
 <body style="background-color: #f5f5f5; color: black;">
 
-    <h1 style="text-align: center;">Welcome to Soccer Abroad</h1>
-    <h2 style="text-align: center;">Please sign up or sign in</h2>
+    <header style="text-align: center; margin-bottom: 30px;">
+        <h1>Join Soccer Abroad</h1>
+        <h2>Please sign up</h2>
+    </header>
 
-    <form method="POST" style="max-width: 600px; margin: auto;">
-        {% csrf_token %}
-        {{ form.as_p }}
+    <!-- Registration Form -->
+    <div style="max-width: 600px; margin: auto; padding: 20px; background-color: white; border-radius: 10px;">
+        <form method="POST">
+            {% csrf_token %}
 
-        <button type="submit" style="background-color: yellow; color: black;">Sign Up</button>
+            <!-- Display errors -->
+            {% if messages %}
+                <ul>
+                    {% for message in messages %}
+                        <li>{{ message }}</li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
 
-        {% if messages %}
-            {% for message in messages %}
-                <p style="color: red;">{{ message }}</p>
-            {% endfor %}
-        {% endif %}
-    </form>
+            <div class="form-group">
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" value="{{ form.email.value }}" required>
+            </div>
+            <div class="form-group">
+                <label for="name">Name:</label>
+                <input type="text" id="name" name="name" value="{{ form.name.value }}" required>
+            </div>
+            <div class="form-group">
+                <label for="surname">Surname:</label>
+                <input type="text" id="surname" name="surname" value="{{ form.surname.value }}" required>
+            </div>
+            <div class="form-group">
+                <label for="password">Password:</label>
+                <input type="password" id="password" name="password" required>
+            </div>
+            <div class="form-group">
+                <label for="password2">Confirm Password:</label>
+                <input type="password" id="password2" name="password2" required>
+            </div>
 
-    <br>
-    <a href="{% url 'signin' %}" style="color: yellow; display: block; text-align: center;">Already have an account? Sign in here.</a>
+            <button type="submit" style="background-color: yellow; padding: 10px 20px;">Sign Up</button>
+        </form>
+    </div>
 
 </body>
 </html>
