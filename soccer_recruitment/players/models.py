@@ -27,8 +27,12 @@ class Player(models.Model):
     completed = models.BooleanField(default=False)
     submitted = models.BooleanField(default=False)
 
-    # Add file field for document uploads
-    documents = models.FileField(upload_to='player_documents/', null=True, blank=True)
+    # File upload fields
+    soccer_video = models.FileField(upload_to='soccer_videos/', null=True, blank=True)
+    highschool_transcript = models.FileField(upload_to='highschool_transcripts/', null=True, blank=True)
+    sat_results = models.FileField(upload_to='sat_results/', null=True, blank=True)
+    toefl_duolingo_results = models.FileField(upload_to='toefl_duolingo_results/', null=True, blank=True)
+    passport = models.FileField(upload_to='passports/', null=True, blank=True)
 
     def __str__(self):
         return f"{self.user.first_name} {self.user.last_name}"

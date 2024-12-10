@@ -1,8 +1,16 @@
 {% extends 'base.html' %}
 
-{% block title %}Tasks{% endblock %}
+{% block title %}Upload Documents{% endblock %}
 
 {% block content %}
-    <h1>Tasks Page</h1>
-    <p>Details about tasks will be displayed here.</p>
+    <h1>Upload Your Documents</h1>
+
+    <form method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form.as_p }}
+
+        <button type="submit">Upload Documents</button>
+    </form>
+
+    <p>Make sure all your documents are complete before submitting them.</p>
 {% endblock %}

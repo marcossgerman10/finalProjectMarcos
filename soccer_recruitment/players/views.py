@@ -3,7 +3,7 @@ from django.contrib.auth import logout, authenticate, login
 from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.contrib.auth.models import User
-from .forms import RegistrationForm, SignInForm, PlayerForm
+from .forms import RegistrationForm, SignInForm, PlayerForm, UploadDocumentsForm
 from .models import Player
 
 
@@ -122,7 +122,25 @@ def requisites(request):
 # Tasks Page View
 @login_required
 def tasks(request):
-    return render(request, 'tasks.html')
+    try:
+        player = Player.objects.get(user=request.user)
+    except Player.DoesNotExist:
+        messages.warning(request, "You don't have a player profile yet. Please complete your registration.")
+        return redirect('requisites')
+
+    if request.method == 'POST':
+        form = UploadDocumentsForm(request.POST, request.FILES, instance=player)
+        if form.is_valid():
+            form.save()
+            messages.success(request, "Your documents have been uploaded successfully.")
+            return redirect('dashboard')  # Redirect to the dashboard or tasks page after successful upload
+        else:
+            messages.error(request, "Please check the uploaded files.")
+            return render(request, 'tasks.html', {'form': form})
+
+    else:
+        form = UploadDocumentsForm(instance=player)  # Prefill the form with existing player data
+    return render(request, 'tasks.html', {'form': form})
 
 
 # Logout View

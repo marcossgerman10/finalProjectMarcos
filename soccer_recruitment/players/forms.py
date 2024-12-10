@@ -89,3 +89,24 @@ class PlayerForm(forms.ModelForm):
             'scholarship_interest': 'Scholarship Interest(Academic/Athletic/Both)',
             'motivation': 'Motivation for Applying',
         }
+
+class UploadDocumentsForm(forms.ModelForm):
+    class Meta:
+        model = Player
+        fields = [
+            'soccer_video', 'highschool_transcript', 'sat_results', 'toefl_duolingo_results', 'passport'
+        ]
+        widgets = {
+            'soccer_video': forms.ClearableFileInput(attrs={'multiple': False}),
+            'highschool_transcript': forms.ClearableFileInput(attrs={'multiple': False}),
+            'sat_results': forms.ClearableFileInput(attrs={'multiple': False}),
+            'toefl_duolingo_results': forms.ClearableFileInput(attrs={'multiple': False}),
+            'passport': forms.ClearableFileInput(attrs={'multiple': False}),
+        }
+        labels = {
+            'soccer_video' : 'Soccer Highlights Video',
+            'highschool_transcript' : 'High School Transcript',
+            'sat_results' : 'SAT Results',
+            'toefl_duolingo_results' : 'TOEFL/Duolingo Results',
+            'passport' : 'Passport',
+        }
