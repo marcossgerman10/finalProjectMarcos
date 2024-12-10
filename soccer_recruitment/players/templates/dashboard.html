@@ -1,30 +1,33 @@
-{% extends 'base.html' %}
+{% extends "base.html" %}
 
 {% block title %}Dashboard{% endblock %}
 
 {% block content %}
-    <header>
-    </header>
+<header>
+</header>
 
-    <main class="dashboard-content">
-        <section class="info-block">
-            <h1>Welcome to Your Dashboard</h1>
-            <p>
-                This platform is designed to guide you through the process of applying for soccer scholarships in the United States.
-                To begin your journey, you need to complete the required requisites.
-            </p>
-            <p>
-                These requisites are part of a questionnaire. Your answers will determine your eligibility and ensure you meet the initial requirements.
-                Once all requisites are successfully completed and verified, you will gain access to the tasks page, where you can start uploading the required documents
-                for your eligibility status and university applications.
-            </p>
-            <p>
-                Please ensure that your answers are accurate and complete to avoid delays in the process.
-            </p>
-            <p>
-                Ready to begin? Click the link below to start the questionnaire and take your first step toward achieving your dreams.
-            </p>
-            <a href="{% url 'requisites' %}" class="start-questionnaire-btn">Start Questionnaire</a>
-        </section>
-    </main>
+<main class="dashboard-content">
+    <section class="info-block">
+        <h1>Welcome to Your Dashboard</h1>
+        <p>Welcome, {{ user.first_name }}!</p>
+
+        <p>
+            This platform is designed to guide you through the process of applying for soccer scholarships in the United States.
+            To begin your journey, you need to complete the required requisites.
+        </p>
+        <p>
+            These requisites are part of a questionnaire. Your answers will determine your eligibility and ensure you meet the initial requirements.
+            Once all requisites are successfully completed and verified, you will gain access to the tasks page, where you can start uploading the required documents
+            for your eligibility status and university applications.
+        </p>
+
+        {% if player and player.completed %}
+        <p>Your questionnaire has been submitted successfully. You can now proceed to upload documents on the Tasks page.</p>
+        <a href="{% url 'tasks' %}" class="btn btn-primary">Go to Tasks</a>
+        {% else %}
+        <p>Please complete your questionnaire to proceed.</p>
+        <a href="{% url 'requisites' %}" class="btn btn-secondary">Go to Questionnaire</a>
+        {% endif %}
+    </section>
+</main>
 {% endblock %}
