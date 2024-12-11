@@ -3,14 +3,14 @@
 {% block title %}Upload Documents{% endblock %}
 
 {% block content %}
-    <h1>Upload Your Documents</h1>
+<div class="card shadow p-4">
+    <h1 class="card-title">Upload Your Documents</h1>
+    <p class="card-text">Make sure all your documents are complete before submitting them.</p>
 
-    <form method="POST" enctype="multipart/form-data">
+    <form method="POST" enctype="multipart/form-data" class="mt-3">
         {% csrf_token %}
         {{ form.as_p }}
-
-        <button type="submit">Upload Documents</button>
+        <button type="submit" class="btn btn-primary w-100">Upload Documents</button>
     </form>
-
-    <p>Make sure all your documents are complete before submitting them.</p>
+</div>
 {% endblock %}

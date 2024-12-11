@@ -3,31 +3,26 @@
 {% block title %}Dashboard{% endblock %}
 
 {% block content %}
-<header>
-</header>
+<div class="card shadow p-4">
+    <h1 class="card-title">Welcome to Your Dashboard</h1>
+    <p class="card-text">Welcome, {{ user.first_name }}!</p>
 
-<main class="dashboard-content">
-    <section class="info-block">
-        <h1>Welcome to Your Dashboard</h1>
-        <p>Welcome, {{ user.first_name }}!</p>
+    <p>
+        This platform is designed to guide you through the process of applying for soccer scholarships in the United States.
+        To begin your journey, you need to complete the required requisites.
+    </p>
+    <p>
+        These requisites are part of a questionnaire. Your answers will determine your eligibility and ensure you meet the initial requirements.
+        Once all requisites are successfully completed and verified, you will gain access to the tasks page, where you can start uploading the required documents
+        for your eligibility status and university applications.
+    </p>
 
-        <p>
-            This platform is designed to guide you through the process of applying for soccer scholarships in the United States.
-            To begin your journey, you need to complete the required requisites.
-        </p>
-        <p>
-            These requisites are part of a questionnaire. Your answers will determine your eligibility and ensure you meet the initial requirements.
-            Once all requisites are successfully completed and verified, you will gain access to the tasks page, where you can start uploading the required documents
-            for your eligibility status and university applications.
-        </p>
-
-        {% if player and player.completed %}
-        <p>Your questionnaire has been submitted successfully. You can now proceed to upload documents on the Tasks page.</p>
-        <a href="{% url 'tasks' %}" class="btn btn-primary">Go to Tasks</a>
-        {% else %}
-        <p>Please complete your questionnaire to proceed.</p>
-        <a href="{% url 'requisites' %}" class="btn btn-secondary">Go to Questionnaire</a>
-        {% endif %}
-    </section>
-</main>
+    {% if player and player.completed %}
+    <p class="alert alert-success">Your questionnaire has been submitted successfully. You can now proceed to upload documents on the Tasks page.</p>
+    <a href="{% url 'tasks' %}" class="btn btn-primary">Go to Tasks</a>
+    {% else %}
+    <p class="alert alert-warning">Please complete your questionnaire to proceed.</p>
+    <a href="{% url 'requisites' %}" class="btn btn-secondary">Go to Questionnaire</a>
+    {% endif %}
+</div>
 {% endblock %}

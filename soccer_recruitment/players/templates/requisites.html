@@ -3,13 +3,17 @@
 {% block title %}Requisites{% endblock %}
 
 {% block content %}
-<h1>Soccer Scholarship Questionnaire</h1>
-<p>Complete the form below to determine your eligibility for a soccer scholarship.</p>
+<div class="card shadow p-4">
+    <h1 class="card-title">Soccer Scholarship Questionnaire</h1>
+    <p class="card-text">Complete the form below to determine your eligibility for a soccer scholarship.</p>
 
-<form method="POST">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit" name="save" class="btn btn-secondary">Save</button>
-    <button type="submit" name="submit" class="btn btn-primary">Submit</button>
-</form>
+    <form method="POST" class="mt-3">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <div class="d-flex justify-content-between">
+            <button type="submit" name="save" class="btn btn-secondary">Save</button>
+            <button type="submit" name="submit" class="btn btn-primary">Submit</button>
+        </div>
+    </form>
+</div>
 {% endblock %}
