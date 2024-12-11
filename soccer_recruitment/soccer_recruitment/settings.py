@@ -1,3 +1,6 @@
+# INF601 - Advanced Programming in Python
+# Marcos German
+# Final Project
 """
 Django settings for soccer_recruitment project.
 

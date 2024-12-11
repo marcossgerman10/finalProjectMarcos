@@ -1,3 +1,7 @@
+# INF601 - Advanced Programming in Python
+# Marcos German
+# Final Project
+
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import logout, authenticate, login
 from django.shortcuts import render, redirect
@@ -15,12 +19,12 @@ def register(request):
         if form.is_valid():
             email = form.cleaned_data['email']
             password = form.cleaned_data['password']
-            first_name = form.cleaned_data['first_name']  # Corrected field
-            last_name = form.cleaned_data['last_name']  # Corrected field
+            first_name = form.cleaned_data['first_name']
+            last_name = form.cleaned_data['last_name']
 
             # Create User
             user = User.objects.create_user(
-                username=email,  # Required field in Django User model
+                username=email,
                 email=email,
                 password=password,
                 first_name=first_name,
@@ -30,9 +34,7 @@ def register(request):
 
             # Create Player instance for the user
             player = Player.objects.create(
-                user=user,  # Link the Player to the User
-                # Do not pass first_name, last_name, or email as Player model does not have these fields
-                # Add any other required fields from the PlayerForm here if necessary
+                user=user,
             )
             player.save()
 
@@ -61,7 +63,7 @@ def signin(request):
             if user is not None:
                 login(request, user)  # This logs the user in
                 messages.success(request, "You have successfully logged in.")
-                return redirect('dashboard')  # Make sure 'dashboard' is the correct URL name for your dashboard page
+                return redirect('dashboard')
             else:
                 messages.error(request, "Invalid email or password.")
                 return render(request, 'signin.html', {'form': form})

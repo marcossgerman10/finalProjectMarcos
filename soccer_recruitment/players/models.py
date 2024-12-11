@@ -1,4 +1,7 @@
-# models.py
+# INF601 - Advanced Programming in Python
+# Marcos German
+# Final Project
+
 from django.db import models
 from django.contrib.auth.models import User
 
